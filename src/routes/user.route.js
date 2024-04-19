@@ -9,7 +9,8 @@ import {
     offYourMeal,
     getCurrentUser,
     deleteUser,
-    changePassword
+    changePassword,
+    onYourMeal
 } from '../controllers/user.controller.js'
 
 import { verifyJWT } from "../middlewares/userVerifyjwt.js"
@@ -32,6 +33,8 @@ router.route("/verifieduser").get(getAllVerifiedUser)
 router.route("/verifyuser/:userId").get(verifyUser)
 
 router.route("/offYourMeal").post(verifyJWT, offYourMeal)
+
+router.route("/onyourmeal").get(verifyJWT,onYourMeal)
 
 router.route("/getCurrentUser").post(verifyJWT,getCurrentUser)
 

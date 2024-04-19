@@ -243,7 +243,7 @@ const offYourMeal = asyncHandeler(async (req, res) => {
         throw new ApiError(400, "user not found")
     }
     const now = Date.now();
-    const lastOffMealTime = req.User.lastOffMealTime || 0;
+    const lastOffMealTime = req.User?.lastOffMealTime || 0;
     const timeDiff = Math.abs(now - lastOffMealTime) / (1000 * 60 * 60);
 
     if (timeDiff >= 24) {
@@ -269,11 +269,16 @@ const onYourMeal = asyncHandeler(async (req, res) => {
     if (!user) {
         throw new ApiError(400, "user not found")
     }
+    const now = Date.now();
+    const lastOffMealTime = req.User?.lastOffMealTime;
+    const timeDiff = Math.abs(now - lastOffMealTime) / (1000 * 60 * 60);
+    console.log(timeDiff);
+
     user.mealStatus = true;
     await user.save({ validateBeforeSave: false })
 
     return res.status(200)
-        .json(200, { user }, "meal is on successfully")
+        .json(new ApiResponse(200, { user }, "meal is on successfully"))
 })
 
 
