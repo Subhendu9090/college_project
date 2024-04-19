@@ -269,11 +269,7 @@ const onYourMeal = asyncHandeler(async (req, res) => {
     if (!user) {
         throw new ApiError(400, "user not found")
     }
-    const now = Date.now();
-    const lastOffMealTime = req.User?.lastOffMealTime;
-    const timeDiff = Math.abs(now - lastOffMealTime) / (1000 * 60 * 60);
-    console.log(timeDiff);
-
+   
     user.mealStatus = true;
     await user.save({ validateBeforeSave: false })
 
